@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\HocTap\\Project\\King_Fashion\\KingFashion\\KingFashion\\KingFashion.csproj": {}
+    "C:\\Users\\ADMIN\\Desktop\\Project\\KingFashionShop\\KingFashion\\KingFashion\\KingFashion.csproj": {}
   },
   "projects": {
-    "D:\\HocTap\\Project\\King_Fashion\\KingFashion\\KingFashion\\KingFashion.csproj": {
+    "C:\\Users\\ADMIN\\Desktop\\Project\\KingFashionShop\\KingFashion\\KingFashion\\KingFashion.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\HocTap\\Project\\King_Fashion\\KingFashion\\KingFashion\\KingFashion.csproj",
+        "projectUniqueName": "C:\\Users\\ADMIN\\Desktop\\Project\\KingFashionShop\\KingFashion\\KingFashion\\KingFashion.csproj",
         "projectName": "KingFashion",
-        "projectPath": "D:\\HocTap\\Project\\King_Fashion\\KingFashion\\KingFashion\\KingFashion.csproj",
+        "projectPath": "C:\\Users\\ADMIN\\Desktop\\Project\\KingFashionShop\\KingFashion\\KingFashion\\KingFashion.csproj",
         "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-        "outputPath": "D:\\HocTap\\Project\\King_Fashion\\KingFashion\\KingFashion\\obj\\",
+        "outputPath": "C:\\Users\\ADMIN\\Desktop\\Project\\KingFashionShop\\KingFashion\\KingFashion\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,6 +40,10 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "dependencies": {
+            "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
+              "target": "Package",
+              "version": "[3.1.17, )"
+            },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[3.1.5, )"

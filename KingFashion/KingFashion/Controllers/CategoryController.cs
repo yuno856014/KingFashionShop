@@ -13,79 +13,55 @@ namespace KingFashion.Controllers
     public class CategoryController : Controller
     {
         // GET: CategoryController
-        public ActionResult Index()
-        {
-            var data = ApiHelper.HttpGet<List<CategoryView>>(@$"{Common.ApiUrl}CategoryDetails");
-            return View(data);
-        }
-
-        // GET: CategoryController/Details/5
-        public ActionResult Details(int id)
+        [Route("/Category/")]
+        public IActionResult Index()
         {
             return View();
         }
-
-        // GET: CategoryController/Create
-        public ActionResult Create()
+        [HttpGet]
+        [Route("/Category/Get")]
+        public IActionResult Get()
         {
-            return View();
+            var data = ApiHelper.HttpGet<List<Category>>(@$"{Common.ApiUrl}CategoryDetails");
+            return Ok(data);
         }
-
-        // POST: CategoryController/Create
+        [HttpGet]
+        [Route("/Category/Get/{id}")]
+        public IActionResult Get(int id)
+        {
+            var data = ApiHelper.HttpGet<Category>(@$"{Common.ApiUrl}CategoryDetails/{id}");
+            return Ok(data);
+        }
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        [Route("/Category/Create")]
+        public IActionResult Create([FromBody] CreateCategory model)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return Ok(ApiHelper.HttpPost<CreateCategoryResult>(@$"{Common.ApiUrl}CategoryDetails", "POST", model));
+        }
+        [HttpPut]
+        [Route("/Category/ChangeStatus")]
+        public IActionResult ChangeStatus([FromBody] ChangeStatusCategory model)
+        {
+            return Ok(ApiHelper.HttpPost<ChangeStatusCategoryResult>(@$"{Common.ApiUrl}CategoryDetails/ChangeStatus", "PUT", model));
+        }
+        [HttpPut]
+        [Route("/Category/Update")]
+        public IActionResult Update([FromBody] UpdateCategory model)
+        {
+            return Ok(ApiHelper.HttpPost<UpdateCategoryResult>(@$"{Common.ApiUrl}CategoryDetails", "PUT", model));
         }
 
-        // GET: CategoryController/Edit/5
-        public ActionResult Edit(int id)
+        [HttpDelete]
+        [Route("/Category/Remove/{id}")]
+        public IActionResult Remove(int id)
         {
-            return View();
+            return Ok(ApiHelper.HttpGet<DeleteCategoryResult>(@$"{Common.ApiUrl}CategoryDetails/{id}", "DELETE"));
         }
-
-        // POST: CategoryController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        [HttpPatch]
+        [Route("/Category/Restore/{id}")]
+        public IActionResult Restore(int id)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: CategoryController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: CategoryController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return Ok(ApiHelper.HttpGet<RestoreCategoryResult>(@$"{Common.ApiUrl}CategoryDetails/{id}", "PATCH"));
         }
     }
 }

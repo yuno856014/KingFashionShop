@@ -172,5 +172,41 @@ namespace ShopThoiTrang.Services.CatDetailsService
                 return new UpdateCatDetailsResult();
             };
         }
+        public async Task<ChangeStatusCategoryDetailsResult> ChangeStatus(ChangeStatusCategoryDetails model)
+        {
+            try
+            {
+                var foundCategoryDetails = await GetCatDetailsById(model.CatDetailsId);
+
+                if (foundCategoryDetails != null)
+                {
+                    DynamicParameters parameters = new DynamicParameters();
+                    parameters.Add("@catDetailsId", model.CatDetailsId);
+                    parameters.Add("@status", model.Status);
+
+                    var catDetailsId = await SqlMapper.QueryFirstOrDefaultAsync<int>(
+                                            cnn: connection,
+                                            sql: "sp_ChangeStatusCategoryDetails",
+                                            param: parameters,
+                                            commandType: CommandType.StoredProcedure
+                                        );
+                    return new ChangeStatusCategoryDetailsResult()
+                    {
+                        Success = catDetailsId > 0
+                    };
+                }
+                return new ChangeStatusCategoryDetailsResult()
+                {
+                    Success = false
+                };
+            }
+            catch (Exception)
+            {
+                return new ChangeStatusCategoryDetailsResult()
+                {
+                    Success = false
+                };
+            }
+        }
     }
 }

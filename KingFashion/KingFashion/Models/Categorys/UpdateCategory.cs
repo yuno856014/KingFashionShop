@@ -5,12 +5,10 @@ using System.Threading.Tasks;
 
 namespace KingFashion.Models.Categorys
 {
-    public class CategoryView
+    public class UpdateCategory
     {
         public int CatDetailsId { get; set; }
         public string CatDetailsName { get; set; }
         public bool Status { get; set; }
-        public bool IsDeleted { get; set; }
-        public string CategoryName { get; set; }
     }
 }

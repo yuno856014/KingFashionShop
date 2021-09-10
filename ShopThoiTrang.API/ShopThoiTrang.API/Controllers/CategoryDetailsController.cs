@@ -49,9 +49,16 @@ namespace ShopThoiTrang.API.Controllers
         }
 
         [HttpPatch]
+        [Route("{id:int}")]
         public async Task<RestroreCatDetailsResult> Restore(int id)
         {
             return await categoryDetailsService.Restore(id);
+        }
+        [HttpPut]
+        [Route("ChangeStatus")]
+        public async Task<ChangeStatusCategoryDetailsResult> ChangeStatus(ChangeStatusCategoryDetails model)
+        {
+            return await categoryDetailsService.ChangeStatus(model);
         }
     }
 }
