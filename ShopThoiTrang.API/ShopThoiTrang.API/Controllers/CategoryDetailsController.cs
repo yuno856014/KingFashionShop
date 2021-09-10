@@ -21,12 +21,13 @@ namespace ShopThoiTrang.API.Controllers
             this.categoryDetailsService = categoryDetailsService;
         }
         [HttpGet]
-        public async Task<IEnumerable<CategoryDetails>> Get()
+        [Route("{catId:int}")]
+        public async Task<IEnumerable<CategoryDetails>> Get(int catId)
         {
-            return await categoryDetailsService.Get();
+            return await categoryDetailsService.Get(catId);
         }
         [HttpGet]
-        [Route("{id:int}")]
+        [Route("Get/{id:int}")]
         public async Task<CategoryDetails> GetCatDetailsById(int id)
         {
             return await categoryDetailsService.GetCatDetailsById(id);

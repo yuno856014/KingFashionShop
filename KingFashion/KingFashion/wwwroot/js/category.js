@@ -1,4 +1,5 @@
 ﻿var category = {};
+
 category.showData = function () {
     $.ajax({
         url: "https://localhost:44368/Category/Get",
@@ -6,58 +7,54 @@ category.showData = function () {
         success: function (data) {
             $('#tbCategory tbody').empty();
             $.each(data, function (index, item) {
-                $('#tbCategory tbody').append(`
-                    <tr>
-                        <td>
-                            ${item.catDetailsId}
-                        </td>
-                        <td>
-                            ${item.catDetailsName}
-                        </td>
-                        <td>
-                            <span class="btn btn-sm ${item.status ? 'btn-warning' : 'btn-danger'}">${item.status ? 'Sẵn Có' : 'Hết Hàng'}</span>
-                        </td>
-                        <td>
-                            <a href='javascript:;' class="btn btn-icon" title="Phục Hồi" onclick='category.restore(${item.catDetailsId})'><span class="btn btn-sm ${item.isDeleted ? 'btn-warning' : 'btn-danger'}">${item.isDeleted ? 'Đã Xóa' : 'Chưa Xóa'}</span></a>
-                        </td>
-                        <td>
-                           ${item.categoryName}
-                        </td>
-                        <td>
-                            <a href='javascript:;' class="btn btn-icon" title="Sửa" onclick="category.get(${item.catDetailsId})"><i class="ti-pencil"></i></a>
-                            <a href='javascript:;' class="btn btn-icon" title="Xóa" onclick='category.remove(${item.catDetailsId})'><i class="ti-trash"></i></a>
-                            <a href='javascript:;' class='btn btn-icon ${item.status ? 'btn-warning' : 'btn-success'}'
-                                   title='${item.status ? 'Sẵn Có' : 'Hết Hàng'}' onclick='category.changeStatus(${item.catDetailsId}, ${item.status})'>
-                                    <i class='${item.status ? 'ti-lock' : 'ti-unlock'}'></i>
-                             </a>
-                        </td>
-                    </tr>
-                `);
+                $('#tbCategory tbody').append(
+                    `
+                        <tr>
+                            <td>${item.categoryId}</td>
+                            <td>${item.categoryName}</td>
+                            <td class='text-right'>
+                            <a href='javascript:;' class="btn btn-mat btn-success btn-square btn-sm" onclick="category.openModel()">
+                                Thêm Mới
+                                <i class="ti-plus"></i>
+                                    </a>
+                                <a href='javascript:;' class='btn btn-info btn-mat btn-sm' title="Xem Danh Mục" onclick="category.switchPage()">Xem Danh Mục
+                                   <i class="ti-eye"></i>
+                                </a>
+                                <a href='javascript:;' class='btn btn-sm btn-secondary' title="Modify category" onclick="category.get(${item.categoryId})">
+                                   Sửa <i class="ti-reload"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    `
+                );
             });
             $('#tbCategory').DataTable({
                 columnDefs: [
-                    { orderable: false, targets: 3 },
-                    { "searchable": false, "targets": 2 }
+                    { orderable: false, targets: 2 }
                 ],
                 order: [[0, 'desc']]
             });
             $('#tbCategory_wrapper').addClass('w-100');
         }
     });
-};
+}
+
+category.switchPage = function() {
+            window.location.href = "/Home/Booking?selectedDate=" + date.format();
+}
+
 category.openModel = function () {
     category.reset();
     $('#categoryModel').modal('show');
 }
 category.save = function () {
     if ($('#frmCategory').valid()) {
-        let catDetailsId = parseInt($('input[name="CatDetailsId"]').val());
+        let categoryId = parseInt($('input[name="CategoryId"]').val());
         //create new category
-        if (catDetailsId == 0) {
+        if (categoryId == 0) {
             var createCategoryObj = {};
-            createCategoryObj.CatDetailsName = $('input[name="CatDetailsName"]').val();
+            createCategoryObj.CategoryName = $('input[name="CategoryName"]').val();
             createCategoryObj.Status = $('input[name="Status"]').is(":checked");
-            createCategoryObj.categoryName = $('input[name="CategoryName"]').val();
             $.ajax({
                 url: "https://localhost:44368/Category/Create",
                 method: "POST",
@@ -79,10 +76,9 @@ category.save = function () {
         //update category
         else {
             var updateCategoryObj = {};
-            updateCategoryObj.catDetailsId = catDetailsId;
-            updateCategoryObj.catDetailsName = $('input[name="CatDetailsName"]').val();
+            updateCategoryObj.CategoryId = categoryId;
+            updateCategoryObj.CategoryName = $('input[name="CategoryName"]').val();
             updateCategoryObj.Status = $('input[name="Status"]').is(":checked");
-            createCategoryObj.categoryName = $('input[name="CategoryName"]').val();
             $.ajax({
                 url: "https://localhost:44368/Category/Update",
                 method: "PUT",
@@ -114,106 +110,7 @@ category.reset = function () {
         inputs[i].classList.remove('error');
     }
     //Reset category Id = 0
-    $('input[name="CatDetailsId"]').val(0);
-}
-category.changeStatus = function (id, status) {
-    bootbox.confirm({
-        title: `${status ? "Inactive" : "Active"} category?`,
-        message: `Do you want to ${status ? "inactive" : "active"} the category now?`,
-        buttons: {
-            cancel: {
-                label: '<i class="fa fa-times"></i> Cancel'
-            },
-            confirm: {
-                label: '<i class="fa fa-check"></i> Confirm'
-            }
-        },
-        callback: function (result) {
-            if (result) {
-                var changeStatusCategoryObj = {};
-                changeStatusCategoryObj.CatDetailsId = id;
-                changeStatusCategoryObj.Status = status;
-                $.ajax({
-                    url: "https://localhost:44368/Category/ChangeStatus",
-                    method: "PUT",
-                    dataType: "json",
-                    contentType: "application/json",
-                    data: JSON.stringify(changeStatusCategoryObj),
-                    success: function (data) {
-                        if (data.success) {
-                            category.showData();
-                            $.notify(data.message, "success");
-                        }
-                        else {
-                            $.notify(data.message, "error");
-                        }
-                    }
-                });
-            }
-        }
-    });
-}
-category.remove = function (id) {
-    bootbox.confirm({
-        title: `Remove category?`,
-        message: `Do you want to remove the category now?`,
-        buttons: {
-            cancel: {
-                label: '<i class="fa fa-times"></i> Cancel'
-            },
-            confirm: {
-                label: '<i class="fa fa-check"></i> Confirm'
-            }
-        },
-        callback: function (result) {
-            if (result) {
-                $.ajax({
-                    url: `https://localhost:44368/Category/Remove/${id}`,
-                    method: "DELETE",
-                    success: function (data) {
-                        if (data.success) {
-                            category.showData();
-                            $.notify(data.message, "success");
-                        }
-                        else {
-                            $.notify(data.message, "error");
-                        }
-                    }
-                });
-            }
-        }
-    });
-}
-category.restore = function (id) {
-    bootbox.confirm({
-        title: `Restore category?`,
-        message: `Do you want to restore the category now?`,
-        buttons: {
-            cancel: {
-                label: '<i class="fa fa-times"></i> Cancel'
-            },
-            confirm: {
-                label: '<i class="fa fa-check"></i> Confirm'
-            }
-        },
-        callback: function (result) {
-            if (result) {
-                $.ajax({
-                    url: `https://localhost:44368/Category/Restore/${id}`,
-                    method: "PATCH",
-                    success: function (data) {
-                        if (data.success) {
-                            category.showData();
-                            $.notify(data.message, "success");
-                        }
-                        else {
-                            $.notify(data.message, "error");
-                        }
-                    }
-                });
-            }
-        }
-    });
+    $('input[name="CategoryId"]').val(0);
 }
 category.get = function (id) {
     $.ajax({
@@ -221,9 +118,8 @@ category.get = function (id) {
         method: "GET",
         success: function (data) {
             $('#categoryModel').modal('show');
-            $('input[name="CatDetailsName"]').val(data.catDetailsName);
-            $('input[name="CatDetailsId"]').val(data.catDetailsId);
-            $('input[name="Status"]').prop('checked', data.status);
+            $('input[name="CategoryName"]').val(data.categoryName);
+            $('input[name="CategoryId"]').val(data.categoryId);
         }
     });
 }

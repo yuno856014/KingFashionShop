@@ -13,5 +13,7 @@ namespace ShopThoiTrang.Services.CategoryService
         Task<Category> CategoryById(int categoryId);
         Task<Category> GetCategoryByName(string categoryName,int categoryId);
         Task<UpdateCategoryResult> Update(UpdateCategory update);
+        Task<CreateCategoryResult> Create(CreateCategory create);
+
     }
 }

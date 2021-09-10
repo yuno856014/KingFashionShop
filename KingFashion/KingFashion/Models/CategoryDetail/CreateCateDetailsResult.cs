@@ -1,13 +1,14 @@
-﻿using System;
+﻿using KingFashion.Models.Categorys;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace KingFashion.Models.Categorys
+namespace KingFashion.Models.CategoryDetail
 {
-    public class CreateCategoryResult
+    public class CreateCateDetailsResult
     {
-        public Category Category { get; set; }
+        public CategoryDetails CategoryDetails { get; set; }
         public bool IsExitst { get; set; }
         public bool Success { get; set; }
         public string Message { get; set; }

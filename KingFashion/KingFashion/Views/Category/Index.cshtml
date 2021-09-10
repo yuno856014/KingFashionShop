@@ -3,30 +3,19 @@
 @{
     ViewData["Title"] = "Index";
 }
-<p>
-    <a href="javascript:;" class="btn btn-out-dashed btn-success btn-square" onclick="category.openModel()"><i class="ti-plus"></i>Thêm Mới</a>
-</p>
+
 <div class="card-block table-border-style">
     <div class="table-responsive">
         <table class="table table-hover" id="tbCategory">
-            <thead style="background: black;color:white">
+            <thead style="background:black;color:white">
                 <tr>
-                    <th style="width:5%">
+                    <th>
                         #
                     </th>
-                    <th style="width:35%">
-                        Danh Mục
+                    <th>
+                        Sản Phẩm
                     </th>
-                    <th style="width:10%">
-                        Trạng thái
-                    </th>
-                    <th style="width:10%">
-                        Bị Xóa
-                    </th>
-                    <th style="width:20%">
-                        Thể Loại
-                    </th>
-                    <th style="width:20%"></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -47,31 +36,23 @@
                 <form id="frmCategory">
                     <div class="form-group">
                         <label>Category</label>
-                        <input type="text" name="CatDetailsName" class="form-control" data-rule-required="true" />
-                        <input type="hidden" name="CatDetailsId" value="0" />
-                    </div>
-                    <div class="form-check">
-                        <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" name="Status"> Status
-                        </label>
+                        <input type="text" name="CategoryName" class="form-control" data-rule-required="true" />
+                        <input type="hidden" name="CategoryId" value="0" />
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                    <i class="fa fa-times"></i>
-                    Close
+                    <i class="ti-close"></i> Đóng
                 </button>
                 <button type="button" class="btn btn-primary" onclick="category.save()">
-                    <i class="fa fa-save"></i>
-                    Save
+                    <i class="ti-check"></i> Lưu
                 </button>
             </div>
         </div>
     </div>
 </div>
-@section scripts{
+@section scripts {
+
     <script src="~/js/category.js" asp-append-version="true"></script>
 }
-
-

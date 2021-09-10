@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace KingFashion.Models.Categorys
+namespace ShopThoiTrang.Domain.Request.Categories
 {
     public class CreateCategory
     {
-        public int CategoryId { get; set; }
         public string CategoryName { get; set; }
     }
 }

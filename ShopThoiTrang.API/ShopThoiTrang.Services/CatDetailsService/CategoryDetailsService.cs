@@ -13,7 +13,7 @@ namespace ShopThoiTrang.Services.CatDetailsService
     public class CategoryDetailsService : BaseService,ICategoryDetailsService
     {
         public CategoryDetailsService(IConfiguration configuration) : base(configuration)
-        {
+        {   
         }
 
         public async Task<CreateCatDetailsResult> Create(CreateCatDetails create)
@@ -84,9 +84,11 @@ namespace ShopThoiTrang.Services.CatDetailsService
             }
         }
 
-        public async Task<IEnumerable<CategoryDetails>> Get()
+        public async Task<IEnumerable<CategoryDetails>> Get(int categoryId)
         {
-            var categoryDetails = await SqlMapper.QueryAsync<CategoryDetails>(cnn: connection, sql: "sp_GetCategoryDetails", commandType: CommandType.StoredProcedure);
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@categoryId", categoryId);
+            var categoryDetails = await SqlMapper.QueryAsync<CategoryDetails>(cnn: connection, sql: "sp_GetAllCategoryDetailsById",param:parameters ,commandType: CommandType.StoredProcedure);
             return categoryDetails;
         }
 
