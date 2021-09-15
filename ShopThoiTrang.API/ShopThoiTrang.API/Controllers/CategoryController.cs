@@ -30,6 +30,11 @@ namespace ShopThoiTrang.API.Controllers
         {
             return await categoryService.CategoryById(id);
         }
+        [HttpPost]
+        public async Task<CreateCategoryResult> Create(CreateCategory model)
+        {
+            return await categoryService.Create(model);
+        }
         [HttpPut]
         public async Task<UpdateCategoryResult> Update(UpdateCategory model)
         {

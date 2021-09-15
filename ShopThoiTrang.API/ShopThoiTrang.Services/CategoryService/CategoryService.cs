@@ -28,6 +28,43 @@ namespace ShopThoiTrang.Services.CategoryService
             return category;
         }
 
+        public async Task<CreateCategoryResult> Create(CreateCategory create)
+        {
+            try
+            {
+                var foundCategory = await GetCategoryByName(create.CategoryName);
+
+                if (foundCategory == null)
+                {
+                    DynamicParameters parameters = new DynamicParameters();
+                    parameters.Add("@categoryName", create.CategoryName);
+
+                    var category = await SqlMapper.QueryFirstOrDefaultAsync<Category>(
+                                            cnn: connection,
+                                            sql: "sp_CreateCategory",
+                                            param: parameters,
+                                            commandType: CommandType.StoredProcedure
+                                        );
+                    return new CreateCategoryResult()
+                    {
+                        IsExitst = false,
+                        Category = category
+                    };
+                }
+                return new CreateCategoryResult()
+                {
+                    Category = foundCategory,
+                    IsExitst = true
+                };
+            }
+            catch (Exception ex)
+            {
+                return new CreateCategoryResult()
+                {
+                    Category = new Category()
+                };
+            }
+        }
         public async Task<IEnumerable<Category>> Get()
         {
             var categories = await SqlMapper.QueryAsync<Category>(

@@ -9,7 +9,7 @@ namespace ShopThoiTrang.Services.CatDetailsService
 {
     public interface ICategoryDetailsService
     {
-        Task<IEnumerable<CategoryDetails>> Get();
+        Task<IEnumerable<CategoryDetails>> Get(int catId);
         Task<CategoryDetails> GetCatDetailsById(int catDetailsId);
         Task<CategoryDetails> GetCatDetailsByName(string catDetailsName, int catDetailsId);
         Task<CreateCatDetailsResult> Create(CreateCatDetails create);
