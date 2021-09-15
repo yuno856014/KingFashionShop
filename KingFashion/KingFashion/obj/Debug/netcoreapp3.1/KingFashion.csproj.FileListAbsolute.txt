@@ -623,3 +623,4 @@ C:\Users\ADMIN\Desktop\Project\KingFashionShop\KingFashion\KingFashion\bin\Debug
 C:\Users\ADMIN\Desktop\Project\KingFashionShop\KingFashion\KingFashion\obj\Debug\netcoreapp3.1\KingFashion.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\ADMIN\Desktop\Project\KingFashionShop\KingFashion\KingFashion\obj\Debug\netcoreapp3.1\Razor\Views\Category\Index.cshtml.g.cs
 C:\Users\ADMIN\Desktop\Project\KingFashionShop\KingFashion\KingFashion\obj\Debug\netcoreapp3.1\Razor\Views\CategoryDetails\Index.cshtml.g.cs
+C:\Users\ADMIN\Desktop\Project\KingFashionShop\KingFashion\KingFashion\obj\Debug\netcoreapp3.1\Razor\Views\Product\Index.cshtml.g.cs

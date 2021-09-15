@@ -1,4 +1,5 @@
 ﻿using ShopThoiTrang.Domain.Response.Categories;
+using ShopThoiTrang.Domain.Response.Products;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,5 +14,6 @@ namespace ShopThoiTrang.Domain.Response.CatDetails
         public bool IsDeleted { get; set; }
         public Category Category { get; set; }
         public int CategoryId { get; set; }
+        public ICollection<Product> Product { get; set; }
     }
 }

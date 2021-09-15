@@ -1,0 +1,185 @@
+﻿@model IEnumerable<Product>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<p>
+    <a href="javascript:;" class="btn btn-out-dashed btn-success btn-square" onclick="product.openModel()"><i class="ti-plus"></i>Thêm Mới</a>
+</p>
+<div class="card-block table-border-style">
+    <div class="table-responsive">
+        <table class="table table-hover" id="tbProduct">
+            <thead style="background: black;color:white">
+                <tr>
+                    <th>
+                        #
+                    </th>
+                    <th>
+                        Sản Phẩm
+                    </th>
+                    <th>
+                        Sự Mô Tả
+                    </th>
+                    <th>
+                        Màu
+                    </th>
+                    <th>
+                        Size
+                    </th>
+                    <th>
+                        Trạng Thái
+                    </th>
+                    <th>
+                        Bị Xóa
+                    </th>
+                    <th>
+                        Số Lượng
+                    </th>
+                    <th>
+                        Ảnh
+                    </th>
+                    <th>
+                        Giá
+                    </th>
+                    <th>
+                        Mã Sản Phẩm
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var pro in Model)
+                {
+                    <tr>
+                        <td>@pro.ProductId</td>
+                        <td>@pro.ProductName</td>
+                        <td>@pro.Description</td>
+                        <td>@pro.Color</td>
+                        <td>@pro.Size</td>
+                        <td>
+                            @if (pro.Status)
+                            {
+                                <a href="javascript:;" class="btn btn-warning btn-sm" style="background-color:#33d176; border-color:#33d176"
+                                   title="Sẵn Có" onclick="product.changeStatus(@pro.ProductId, @pro.Status.ToString().ToLower())">
+                                    Sẵn Có
+                                </a>
+
+                            }
+                            else
+                            {
+                                <a href="javascript:;" class="btn btn-warning btn-sm"
+                                   title="Hết Hàng" onclick="product.changeStatus(@pro.ProductId, @pro.Status.ToString().ToLower())">
+                                    Hết Hàng
+                                </a>
+                            }
+                        </td>
+                        <td>
+                            @if (pro.IsDeleted)
+                            {
+                                <a href="javascript:;" class="btn btn-danger btn-sm" 
+                                   onclick="product.changeIsDeleted(@pro.ProductId, @pro.IsDeleted.ToString().ToLower())">
+                                    Đã Xóa  
+                                </a>
+
+                            }
+                            else
+                            {
+                                <a href="javascript:;" class="btn btn-warning btn-sm" style="background-color:#33d176; border-color:#33d176"
+                                   onclick="product.changeIsDeleted(@pro.ProductId, @pro.IsDeleted.ToString().ToLower())">
+                                    Hoạt Động
+                                </a>
+                            }
+                        </td>
+                        <td>@pro.Quantity</td>
+                        <td>@pro.Photo</td>
+                        <td>@pro.Price</td>
+                        <td>@pro.ProductCode</td>
+                        <td>
+                            <a href="javascript:;" class="btn btn-secondary" title="Sửa" onclick="product.get(@pro.ProductId)">
+                                <i class="ti-pencil"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="modal fade" id="productModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Sản Phẩm</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="frmProduct">
+                    <div class="form-group">
+                        <label>Sản Phẩm</label>
+                        <input type="text" name="ProductName" class="form-control" data-rule-required="true" />
+                        <input type="hidden" name="ProductId" value="0" />
+                        <input type="hidden" name="CatDetailsId" value="@ViewBag.CatDetailsId" />
+                    </div>
+                    <div class="form-group">
+                        <label>Sự Mô Tả</label>
+                        <input type="text" name="Description" class="form-control" data-rule-required="true" />
+                    </div>
+                    <div class="form-group">
+                        <label>Màu</label>
+                        <select name="Color" class="form-control" data-rule-required="true">
+                            <option value="value">Mặc Định</option>
+                            <option value="value">Đen</option>
+                            <option value="value">Trắng</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Size</label>
+                        <select name="Size" class="form-control" data-rule-required="true">
+                            <option value="value">S</option>
+                            <option value="value">M</option>
+                            <option value="value">L</option>
+                            <option value="value">XL</option>
+                        </select>
+                    </div>
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" name="Status">  Trạng thái
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>Số Lượng</label>
+                        <input type="text" name="Quantity" class="form-control" data-rule-required="true" />
+                    </div>
+                    <div class="form-group">
+                        <label>Ảnh</label>
+                        <input type="text" name="Photo" class="form-control" data-rule-required="true" />
+                    </div>
+                    <div class="form-group">
+                        <label>Giá</label>
+                        <input type="text" name="Price" class="form-control" data-rule-required="true" />
+                    </div>
+                    <div class="form-group">
+                        <label>Mã Sản Phẩm</label>
+                        <input type="text" name="ProductCode" class="form-control" data-rule-required="true" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    <i class="fa fa-times"></i>
+                    Trở Lại
+                </button>
+                <button type="button" class="btn btn-primary" onclick="product.save()">
+                    <i class="fa fa-save"></i>
+                    Lưu
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="~/js/product.js" asp-append-version="true"></script>
+}

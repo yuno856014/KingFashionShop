@@ -42,24 +42,17 @@ namespace ShopThoiTrang.API.Controllers
         {
             return await categoryDetailsService.Update(model);
         }
-        [HttpDelete]
-        [Route("{id:int}")]
-        public async Task<DeletedCatDetailsResult> Delete(int id)
-        {
-            return await categoryDetailsService.Deleted(id);
-        }
-
-        [HttpPatch]
-        [Route("{id:int}")]
-        public async Task<RestroreCatDetailsResult> Restore(int id)
-        {
-            return await categoryDetailsService.Restore(id);
-        }
         [HttpPut]
         [Route("ChangeStatus")]
         public async Task<ChangeStatusCategoryDetailsResult> ChangeStatus(ChangeStatusCategoryDetails model)
         {
             return await categoryDetailsService.ChangeStatus(model);
+        }
+        [HttpPut]
+        [Route("ChangeIsDeleted")]
+        public async Task<ChangeIsDeletedCatDetailsResult> ChangeIsDeleted(ChangeIsDeletedCatDetails model)
+        {
+            return await categoryDetailsService.ChangeIsDeleted(model);
         }
     }
 }

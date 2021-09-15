@@ -40,8 +40,15 @@ using KingFashion.Models.CategoryDetail;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 5 "C:\Users\ADMIN\Desktop\Project\KingFashionShop\KingFashion\KingFashion\Views\_ViewImports.cshtml"
+using KingFashion.Models.Products;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"d8ddb6bffa5a9b264bf8f89038bf03c234083fd3", @"/Views/Home/Privacy.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"4513d9415f8e85cd924b43391b7203c4f2067896", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"2d49ec4426de693030868cba3cb14c2a272a47a5", @"/Views/_ViewImports.cshtml")]
     public class Views_Home_Privacy : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         #pragma warning disable 1998

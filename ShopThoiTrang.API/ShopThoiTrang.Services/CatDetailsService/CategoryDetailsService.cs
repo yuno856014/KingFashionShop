@@ -49,41 +49,6 @@ namespace ShopThoiTrang.Services.CatDetailsService
                 };
             }
         }
-
-        public async Task<DeletedCatDetailsResult> Deleted(int catDetailsId)
-        {
-            try
-            {
-                var foundCatDetails = await GetCatDetailsById(catDetailsId);
-                if (foundCatDetails != null)
-                {
-                    DynamicParameters parameters = new DynamicParameters();
-                    parameters.Add("@catDetailsId", catDetailsId);
-
-                    var catDetails = await SqlMapper.QueryFirstOrDefaultAsync<CategoryDetails>(cnn: connection, sql: "sp_DeletedCategoryDetails", param: parameters, commandType: CommandType.StoredProcedure);
-                    return new DeletedCatDetailsResult()
-                    {
-                        Success = true,
-                        NotFound = false
-                    };
-                }
-                return new DeletedCatDetailsResult()
-                {
-                    Success = false,
-                    NotFound = true
-                };
-
-            }
-            catch (Exception ex)
-            {
-                return new DeletedCatDetailsResult()
-                {
-                    Success = false,
-                    NotFound = false
-                };
-            }
-        }
-
         public async Task<IEnumerable<CategoryDetails>> Get(int categoryId)
         {
             DynamicParameters parameters = new DynamicParameters();
@@ -107,39 +72,6 @@ namespace ShopThoiTrang.Services.CatDetailsService
             parameters.Add("@catDetailsId", catDetailsId);
             var categoryDetails = await SqlMapper.QueryFirstOrDefaultAsync<CategoryDetails>(cnn: connection, sql: "sp_GetCategoryDetailsByName", param: parameters, commandType: CommandType.StoredProcedure);
             return categoryDetails;
-        }
-
-        public async Task<RestroreCatDetailsResult> Restore(int catDetailsId)
-        {
-            try
-            {
-                var foundCatDetails = await GetCatDetailsById(catDetailsId);
-                if (foundCatDetails != null)
-                {
-                    DynamicParameters parameters = new DynamicParameters();
-                    parameters.Add("@catDetailsId", catDetailsId);
-
-                    var categoryDetails = await SqlMapper.QueryFirstOrDefaultAsync<CategoryDetails>(cnn: connection, sql: "sp_RestoreCategoryDetails", param: parameters, commandType: CommandType.StoredProcedure);
-                    return new RestroreCatDetailsResult()
-                    {
-                        Success = true,
-                        NotFound = false
-                    };
-                }
-                return new RestroreCatDetailsResult()
-                {
-                    Success = false,
-                    NotFound = true
-                };
-            }
-            catch (Exception ex)
-            {
-                return new RestroreCatDetailsResult()
-                {
-                    Success = false,
-                    NotFound = false
-                };
-            }
         }
 
         public async Task<UpdateCatDetailsResult> Update(UpdateCatDetails update)
@@ -205,6 +137,43 @@ namespace ShopThoiTrang.Services.CatDetailsService
             catch (Exception)
             {
                 return new ChangeStatusCategoryDetailsResult()
+                {
+                    Success = false
+                };
+            }
+        }
+
+        public async Task<ChangeIsDeletedCatDetailsResult> ChangeIsDeleted(ChangeIsDeletedCatDetails model)
+        {
+            try
+            {
+                var foundCategoryDetails = await GetCatDetailsById(model.CatDetailsId);
+
+                if (foundCategoryDetails != null)
+                {
+                    DynamicParameters parameters = new DynamicParameters();
+                    parameters.Add("@catDetailsId", model.CatDetailsId);
+                    parameters.Add("@isDeleted", model.IsDeleted);
+
+                    var catDetailsId = await SqlMapper.QueryFirstOrDefaultAsync<int>(
+                                            cnn: connection,
+                                            sql: "sp_ChangeIsDeletedCatDetails",
+                                            param: parameters,
+                                            commandType: CommandType.StoredProcedure
+                                        );
+                    return new ChangeIsDeletedCatDetailsResult()
+                    {
+                        Success = catDetailsId > 0
+                    };
+                }
+                return new ChangeIsDeletedCatDetailsResult()
+                {
+                    Success = false
+                };
+            }
+            catch (Exception)
+            {
+                return new ChangeIsDeletedCatDetailsResult()
                 {
                     Success = false
                 };

@@ -1,5 +1,4 @@
 ﻿var category = {};
-
 category.showData = function () {
     $.ajax({
         url: "https://localhost:44368/Category/Get",
@@ -13,12 +12,12 @@ category.showData = function () {
                             <td>${item.categoryId}</td>
                             <td>${item.categoryName}</td>
                             <td class='text-right'>
-                            <a href='javascript:;' class="btn btn-mat btn-success btn-square btn-sm" onclick="category.openModel()">
-                                Thêm Mới
-                                <i class="ti-plus"></i>
-                                    </a>
-                                <a href='javascript:;' class='btn btn-info btn-mat btn-sm' title="Xem Danh Mục" onclick="category.switchPage()">Xem Danh Mục
-                                   <i class="ti-eye"></i>
+                                 <a href='javascript:;' class="btn btn-mat btn-success btn-square btn-sm" onclick="category.openModel()">
+                                    Thêm Mới
+                                    <i class="ti-plus"></i>
+                                </a>
+                                <a href="/CategoryDetails/${item.categoryId}" class='btn btn-info btn-mat btn-sm' title="Xem Danh Mục">Xem Danh Mục
+                                    <i class="ti-eye"></i>
                                 </a>
                                 <a href='javascript:;' class='btn btn-sm btn-secondary' title="Modify category" onclick="category.get(${item.categoryId})">
                                    Sửa <i class="ti-reload"></i>
@@ -28,6 +27,7 @@ category.showData = function () {
                     `
                 );
             });
+            $.fn.dataTable.ext.errMode = 'none';
             $('#tbCategory').DataTable({
                 columnDefs: [
                     { orderable: false, targets: 2 }
@@ -38,14 +38,10 @@ category.showData = function () {
         }
     });
 }
-
-category.switchPage = function() {
-            window.location.href = "/Home/Booking?selectedDate=" + date.format();
-}
-
 category.openModel = function () {
     category.reset();
     $('#categoryModel').modal('show');
+    $("#exampleModalLabel").html("Thêm mới Danh Mục");
 }
 category.save = function () {
     if ($('#frmCategory').valid()) {
@@ -113,6 +109,7 @@ category.reset = function () {
     $('input[name="CategoryId"]').val(0);
 }
 category.get = function (id) {
+    $("#exampleModalLabel").html("Sửa Danh Mục");
     $.ajax({
         url: `https://localhost:44368/Category/Get/${id}`,
         method: "GET",
@@ -122,7 +119,9 @@ category.get = function (id) {
             $('input[name="CategoryId"]').val(data.categoryId);
         }
     });
+    
 }
 $(document).ready(function () {
     category.showData();
 });
+

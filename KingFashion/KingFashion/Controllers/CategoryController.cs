@@ -17,29 +17,29 @@ namespace KingFashion.Controllers
         }
         [HttpGet]
         [Route("/Category/Get")]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            var data = ApiHelper.HttpGet<List<Category>>(@$"{Common.ApiUrl}Category");
+            var data = await ApiHelper.HttpGet<List<Category>>(@$"{Common.ApiUrl}Category");
             return Ok(data);
         }
         [HttpGet]
         [Route("/Category/Get/{id}")]
-        public IActionResult Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            var data = ApiHelper.HttpGet<Category>(@$"{Common.ApiUrl}Category/{id}");
+            var data = await ApiHelper.HttpGet<Category>(@$"{Common.ApiUrl}Category/{id}");
             return Ok(data);
         }
         [HttpPost]
         [Route("/Category/Create")]
-        public IActionResult Create([FromBody] CreateCategory model)
+        public async Task<IActionResult> Create([FromBody] CreateCategory model)
         {
-            return Ok(ApiHelper.HttpPost<CreateCategoryResult>(@$"{Common.ApiUrl}Category", "POST", model));
+            return Ok(await ApiHelper.HttpPost<CreateCategoryResult>(@$"{Common.ApiUrl}Category", "POST", model));
         }
         [HttpPut]
         [Route("/Category/Update")]
-        public IActionResult Update([FromBody] UpdateCategory model)
+        public async Task<IActionResult> Update([FromBody] UpdateCategory model)
         {
-            return Ok(ApiHelper.HttpPost<UpdateCategoryResult>(@$"{Common.ApiUrl}Category", "PUT", model));
+            return  Ok(await ApiHelper.HttpPost<UpdateCategoryResult>(@$"{Common.ApiUrl}Category", "PUT", model));
         }
     }
 }
