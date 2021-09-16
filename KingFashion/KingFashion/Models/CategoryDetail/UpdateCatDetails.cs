@@ -12,3 +12,4 @@ namespace KingFashion.Models.CategoryDetail
         public bool Status { get; set; }
     }
 }
+ 

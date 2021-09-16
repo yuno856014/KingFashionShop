@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace KingFashion.Models.CategoryDetail
+namespace KingFashion.Models.Products
 {
-    public class ChangeStatusCateDetails
+    public class ChangeStatusProduct
     {
-        public int CatDetailsId { get; set; }
+        public int ProductId { get; set; }
         public bool Status { get; set; }
     }
 }

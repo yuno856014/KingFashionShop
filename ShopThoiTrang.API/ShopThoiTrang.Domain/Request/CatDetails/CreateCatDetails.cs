@@ -8,6 +8,7 @@ namespace ShopThoiTrang.Domain.Request.CatDetails
     {
         public string CatDetailsName { get; set; }
         public bool Status { get; set; }
+        public bool IsDeleted { get; set; }
         public int CategoryId { get; set; }
     }
 }

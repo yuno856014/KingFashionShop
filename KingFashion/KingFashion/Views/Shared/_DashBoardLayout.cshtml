@@ -30,9 +30,15 @@
     <link rel="stylesheet" type="text/css" href="~/assets/css/style.css">
     <link rel="stylesheet" type="text/css" href="~/assets/css/jquery.mCustomScrollbar.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.2/datatables.min.css" />
+    <style>
+        .btn-danger{
+            background-color:red !important;
+            border-color:red !important;
+        }
+    </style>
 </head>
 
-<body>
+<body themebg-pattern="pattern2">
     <!-- Pre-loader start -->
     <div class="theme-loader">
         <div class="ball-scale">
@@ -80,14 +86,14 @@
                 <div class="navbar-wrapper">
 
                     <div class="navbar-logo">
-                        <a class="mobile-menu" id="mobile-collapse" href="/">
+                        <a class="mobile-menu" id="mobile-collapse"     >
                             <i class="ti-menu"></i>
                         </a>
-                        <a class="mobile-search morphsearch-search" href="/">
+                        <a class="mobile-search morphsearch-search" >
                             <i class="ti-search"></i>
                         </a>
                         <a href="/">
-                            <img class="img-fluid" style="max-width:50% !important" src="~/images/Logo.png" alt="Theme-Logo" />
+                            <img class="img-fluid" src="~/images/Logo.png" style="max-width:50% !important" alt="Theme-Logo" />
                         </a>
                         <a class="mobile-options">
                             <i class="ti-more"></i>
@@ -179,12 +185,12 @@
                                     </a>
                                 </li>
                             </ul>
-                            <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">Category</div>
+                            <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">Danh Mục</div>
                             <ul class="pcoded-item pcoded-left-item">
                                 <li>
                                     <a asp-controller="Category" asp-action="Index">
                                         <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">Category</span>
+                                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">Danh Mục</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
@@ -248,3 +254,4 @@
 </body>
 
 </html>
+

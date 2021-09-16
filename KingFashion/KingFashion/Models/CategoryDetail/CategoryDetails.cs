@@ -1,4 +1,5 @@
 ﻿using KingFashion.Models.Categorys;
+using KingFashion.Models.Products;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,7 @@ namespace KingFashion.Models.CategoryDetail
         public bool Status { get; set; }
         public bool IsDeleted { get; set; }
         public Categorys.Category Category { get; set; }
+        public ICollection<Product> Product { get; set; } 
+        public int CategoryId { get; set; }
     }
 }

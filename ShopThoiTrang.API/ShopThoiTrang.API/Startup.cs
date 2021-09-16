@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using ShopThoiTrang.Services.CatDetailsService;
 using ShopThoiTrang.Services.CategoryService;
+using ShopThoiTrang.Services.Products;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +32,7 @@ namespace ShopThoiTrang.API
             services.AddSwaggerGen();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<ICategoryDetailsService, CategoryDetailsService>();
+            services.AddScoped<IProductService, ProductService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

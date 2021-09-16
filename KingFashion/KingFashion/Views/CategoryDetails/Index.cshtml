@@ -1,10 +1,10 @@
-﻿@model IEnumerable<CategoryDetails>
+﻿@model IEnumerable<CategoryDetails>;
 
 @{
     ViewData["Title"] = "Index";
 }
 <p>
-    <a href="javascript:;" class="btn btn-out-dashed btn-success btn-square" onclick="category.openModel()"><i class="ti-plus"></i>Thêm Mới</a>
+    <a href="javascript:;" class="btn btn-out-dashed btn-success btn-square" onclick="categorydetail.openModel()"><i class="ti-plus"></i>Thêm Mới</a>
 </p>
 <div class="card-block table-border-style">
     <div class="table-responsive">
@@ -15,22 +15,83 @@
                         #
                     </th>
                     <th style="width:35%">
-                        Danh Mục
+                        Danh Mục Con
                     </th>
-                    <th style="width:10%">
+                    <th style="width:15%">
                         Trạng thái
                     </th>
-                    <th style="width:10%">
+                    <th style="width:15%">
                         Bị Xóa
                     </th>
-                    <th style="width:20%">
-                        Thể Loại
-                    </th>
-                    <th style="width:20%"></th>
+                    <th style="width:30%"></th>
                 </tr>
             </thead>
             <tbody>
-                  
+                @foreach (CategoryDetails cat in Model)
+                {
+                    <tr>
+                        <td>@cat.CatDetailsId</td>
+                        <td>@cat.CatDetailsName</td>
+                        <td>
+                            @if (cat.Status)
+                            {
+                                <a href="javascript:;" class="btn btn-warning btn-sm" style="background-color:#33d176; border-color:#33d176"
+                                   title="Sẵn Có" onclick="categorydetail.changeStatus(@cat.CatDetailsId, @cat.Status.ToString().ToLower())">
+                                    Sẵn Có
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="javascript:;" class="btn btn-warning btn-sm"
+                                   title="Hết Hàng" onclick="categorydetail.changeStatus(@cat.CatDetailsId, @cat.Status.ToString().ToLower())">
+                                    Hết Hàng
+                                </a>
+                            }
+                        </td>
+                        @if (!cat.IsDeleted)
+                        {
+                            <td>
+                                <a href="javascript:;" class="btn btn-warning btn-sm" style="background-color:#33d176; border-color:#33d176"
+                                   onclick="categorydetail.changeIsDeleted(@cat.CatDetailsId, @cat.IsDeleted.ToString().ToLower())">
+                                    Hoạt Động
+                                </a>
+                            </td>
+                            <td>
+                                <a href="/Product/@cat.CatDetailsId" class="btn btn-info btn-mat" title="Xem Danh Mục">
+                                    <i class="ti-eye"></i>
+                                </a>
+                                <a href="javascript:;" class="btn btn-secondary" title="Sửa" onclick="categorydetail.get(@cat.CatDetailsId)">
+                                    <i class="ti-pencil"></i>
+                                </a>
+                                @if (cat.Status)
+                                {
+                                    <a href="javascript:;" class="btn btn-warning" style="background-color:#33d176; border-color:#33d176"
+                                       title="Sẵn Có" onclick="categorydetail.changeStatus(@cat.CatDetailsId, @cat.Status.ToString().ToLower())">
+                                        <i class=ti-unlock></i>
+                                    </a>
+
+                                }
+                                else
+                                {
+                                    <a href="javascript:;" class="btn btn-warning"
+                                       title="Hết Hàng" onclick="categorydetail.changeStatus(@cat.CatDetailsId, @cat.Status.ToString().ToLower())">
+                                        <i class=ti-lock></i>
+                                    </a>
+                                }
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <a href="javascript:;" class="btn btn-danger btn-sm"
+                                   onclick="categorydetail.changeIsDeleted(@cat.CatDetailsId, @cat.IsDeleted.ToString().ToLower())">
+                                    Đã Xóa
+                                </a>
+                            </td>
+                            <td></td>
+                        }
+                    </tr>
+                }
             </tbody>
         </table>
     </div>
@@ -39,7 +100,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Create category</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Danh Mục</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -47,25 +108,26 @@
             <div class="modal-body">
                 <form id="frmCategory">
                     <div class="form-group">
-                        <label>Category</label>
+                        <label>Danh Mục Con</label>
                         <input type="text" name="CatDetailsName" class="form-control" data-rule-required="true" />
                         <input type="hidden" name="CatDetailsId" value="0" />
+                        <input type="hidden" name="CategoryId" value="@ViewBag.CatId" />
                     </div>
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" name="Status"> Status
+                            <input type="checkbox" class="form-check-input" name="Status"> Trạng Thái
                         </label>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                    <i class="fa fa-times"></i>
-                    Close
+                    <i class="ti-close"></i>
+                    Trở Lại
                 </button>
-                <button type="button" class="btn btn-primary" onclick="category.save()">
-                    <i class="fa fa-save"></i>
-                    Save
+                <button type="button" class="btn btn-primary" onclick="categorydetail.save()">
+                    <i class="ti-check"></i>
+                    Lưu
                 </button>
             </div>
         </div>

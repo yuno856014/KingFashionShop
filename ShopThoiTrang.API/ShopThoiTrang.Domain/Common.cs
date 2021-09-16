@@ -27,6 +27,18 @@ namespace ShopThoiTrang.Domain
                 public static string NotFound = "CategoryDetails has been not found";
                 public static string Restore = "CategoryDetails has been restore successful";
                 public static string ChangeStatus = "CategoryDetails has been change status successful";
+                public static string ChangeIsDeleted = "CategoryDetails has been change IsDeleted successful";
+            }
+            public static class Product
+            {
+                public static string Create = "Product has been created successful";
+                public static string Update = "Product has been updated successful";
+                public static string Delete = "Product has been deleted successful";
+                public static string Exits = "Product has been existed";
+                public static string NotFound = "Product has been not found";
+                public static string Restore = "Product has been restore successful";
+                public static string ChangeStatus = "Product has been change status successful";
+                public static string ChangeIsDeleted = "Product has been change IsDeleted successful";
             }
         }
     }

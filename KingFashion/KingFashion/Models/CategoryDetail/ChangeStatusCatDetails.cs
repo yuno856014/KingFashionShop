@@ -7,7 +7,7 @@ namespace KingFashion.Models.CategoryDetail
 {
     public class ChangeStatusCatDetails
     {
-        public bool Success { get; set; }
-        public string Message { get; set; }
+        public int CatDetailsId { get; set; }
+        public bool Status { get; set; }
     }
 }

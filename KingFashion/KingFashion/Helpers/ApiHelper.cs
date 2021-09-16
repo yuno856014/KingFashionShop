@@ -10,7 +10,7 @@ namespace KingFashion.Helpers
 {
     public static class ApiHelper
     {
-        public static T HttpGet<T>(string apiUrl, string method = "GET")
+        public static async Task<T> HttpGet<T>(string apiUrl, string method = "GET")
         {
             WebRequest request = WebRequest.Create(apiUrl);
             request.Method = method;
@@ -24,7 +24,7 @@ namespace KingFashion.Helpers
             return JsonConvert.DeserializeObject<T>(responseFromServer);
         }
 
-        public static T HttpPost<T>(string apiUrl, string method, object model)
+        public static async Task<T> HttpPost<T>(string apiUrl, string method, object model)
         {
             WebRequest request = WebRequest.Create(apiUrl);
             request.Method = method;

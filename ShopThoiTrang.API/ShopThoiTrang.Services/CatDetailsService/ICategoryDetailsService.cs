@@ -14,8 +14,8 @@ namespace ShopThoiTrang.Services.CatDetailsService
         Task<CategoryDetails> GetCatDetailsByName(string catDetailsName, int catDetailsId);
         Task<CreateCatDetailsResult> Create(CreateCatDetails create);
         Task<UpdateCatDetailsResult> Update(UpdateCatDetails update);
-        Task<DeletedCatDetailsResult> Deleted(int catDetailsId);
-        Task<RestroreCatDetailsResult> Restore(int catDetailsId);
         Task<ChangeStatusCategoryDetailsResult> ChangeStatus(ChangeStatusCategoryDetails model);
+        Task<ChangeIsDeletedCatDetailsResult> ChangeIsDeleted(ChangeIsDeletedCatDetails model);
+
     }
 }

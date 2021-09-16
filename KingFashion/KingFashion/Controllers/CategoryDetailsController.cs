@@ -13,58 +13,45 @@ namespace KingFashion.Controllers
 {
     public class CategoryDetailsController : Controller
     {
-        // GET: CategoryController
+        
         [HttpGet]
-        [Route("/CategoryDetails/")]
-        public IActionResult Index()
+        [Route("/CategoryDetails/{categoryId}")]
+        public async Task<IActionResult> Index(int categoryId)
         {
-            
-            return View();
+               ViewBag.CatId = categoryId;
+               var data = await ApiHelper.HttpGet<List<CategoryDetails>>(@$"{Common.ApiUrl}CategoryDetails/{categoryId}");
+            return View(data);
         }
-        [HttpGet]
-        [Route("/CategoryDetails/{Id}")]
-        public IActionResult GetById(int Id)
-        {
-            var data = ApiHelper.HttpGet<List<CategoryDetails>>(@$"{Common.ApiUrl}CategoryDetails/{Id}");
-            return Ok(data);
-        }
-        [HttpGet]
+        [HttpGet]   
         [Route("/CategoryDetails/Get/{id}")]
-        public IActionResult Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            var data = ApiHelper.HttpGet<CategoryDetails>(@$"{Common.ApiUrl}CategoryDetails/Get/{id}");
+            var data = await ApiHelper.HttpGet<CategoryDetails>(@$"{Common.ApiUrl}CategoryDetails/Get/{id}");
             return Ok(data);
         }
         [HttpPost]
-        [Route("/CategoryDetails/Create")]
-        public IActionResult Create([FromBody] CreateCatDetails model)
+        [Route("/CategoryDetails/{categoryId}/Create")]
+        public async Task<IActionResult> Create([FromBody] CreateCatDetails model)
         {
-            return Ok(ApiHelper.HttpPost<CreateCateDetailsResult>(@$"{Common.ApiUrl}CategoryDetails", "POST", model));
+            return Ok(await ApiHelper.HttpPost<CreateCateDetailsResult>(@$"{Common.ApiUrl}CategoryDetails", "POST", model));
         }
         [HttpPut]
         [Route("/CategoryDetails/ChangeStatus")]
-        public IActionResult ChangeStatus([FromBody] ChangeStatusCateDetails model)
+        public async Task<IActionResult> ChangeStatus([FromBody] ChangeStatusCatDetails model)
         {
-            return Ok(ApiHelper.HttpPost<ChangeStatusCatDetails>(@$"{Common.ApiUrl}CategoryDetails/ChangeStatus", "PUT", model));
+            return Ok(await ApiHelper.HttpPost<ChangeStatusCatDetailsResult>(@$"{Common.ApiUrl}CategoryDetails/ChangeStatus", "PUT", model));
         }
         [HttpPut]
         [Route("/CategoryDetails/Update")]
-        public IActionResult Update([FromBody] UpdateCatDetails model)
+        public async Task<IActionResult> Update([FromBody] UpdateCatDetails model)
         {
-            return Ok(ApiHelper.HttpPost<UpdateCatDetailsResult>(@$"{Common.ApiUrl}CategoryDetails", "PUT", model));
+            return Ok(await ApiHelper.HttpPost<UpdateCatDetailsResult>(@$"{Common.ApiUrl}CategoryDetails", "PUT", model));
         }
-
-        [HttpDelete]
-        [Route("/CategoryDetails/Remove/{id}")]
-        public IActionResult Remove(int id)
+        [HttpPut]
+        [Route("/CategoryDetails/ChangeIsDeleted")]
+        public async Task<IActionResult> ChangeIsDeleted([FromBody] ChangeIsDeletedCatDetails model)
         {
-            return Ok(ApiHelper.HttpGet<DeleteCatDetailsResult>(@$"{Common.ApiUrl}CategoryDetails/{id}", "DELETE"));
-        }
-        [HttpPatch]
-        [Route("/CategoryDetails/Restore/{id}")]
-        public IActionResult Restore(int id)
-        {
-            return Ok(ApiHelper.HttpGet<RestoreCatDetailsResult>(@$"{Common.ApiUrl}CategoryDetails/{id}", "PATCH"));
+            return Ok(await ApiHelper.HttpPost<ChangeIsDeletedCatDetailsResult>(@$"{Common.ApiUrl}CategoryDetails/ChangeIsDeleted", "PUT", model));
         }
     }
 }
