@@ -6,6 +6,11 @@ $('#tbProduct').DataTable({
     ],
     order: [[0, 'desc']]
 });
+$(".custom-file-input").on("change", function () {
+    var fileName = $(this).val().split("\\").pop();
+    $('.no-photo').attr('src', window.URL.createObjectURL($(this)[0].files[0]));
+    $(".custom-file-label").addClass("selected").html(fileName);
+});
 product.changeStatus = function (id, status) {
     bootbox.confirm({
         title: `Danh Mục ${status ? "Sẵn Có" : "Hết Hàng"}`,
@@ -140,13 +145,13 @@ product.save = function () {
             updateProductObj.productId = productId;
             updateProductObj.productName = $('input[name="ProductName"]').val();
             updateProductObj.status = $('input[name="Status"]').is(":checked");
-            updateProductObj.color = $('input[name="Color"]').val();
+            updateProductObj.color = $('option[name="Color"]').val();
             updateProductObj.price = parseInt($('input[name="Price"]').val());
             updateProductObj.photo = $('input[name="Photo"]').val();
             updateProductObj.quantity = parseInt($('input[name="Quantity"]').val());
             updateProductObj.productCode = $('input[name="ProductCode"]').val();
             updateProductObj.description = $('input[name="Description"]').val();
-            updateProductObj.size = $('input[name="Size"]').val();
+            updateProductObj.size = $('option[name="Size"]').val();
             $.ajax({
                 url: "https://localhost:44368/Product/Update",
                 method: "PUT",
@@ -177,9 +182,9 @@ product.get = function (id) {
             $('input[name="ProductId"]').val(data.productId);
             $('input[name="Status"]').prop('checked', data.status);
             $('input[name="Color"]').val(data.color);
-            $('input[name="Price"]').val(data.price);
+            parseInt($('input[name="Price"]').val(data.price));
             $('input[name="Photo"]').val(data.photo);
-            $('input[name="Quantity"]').val(data.quantity);
+            parseInt($('input[name="Quantity"]').val(data.quantity));
             $('input[name="ProductCode"]').val(data.productCode);
             $('input[name="Description"]').val(data.description);
             $('input[name="Size"]').val(data.size);

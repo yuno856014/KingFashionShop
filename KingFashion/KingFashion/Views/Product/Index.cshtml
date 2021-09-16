@@ -109,7 +109,7 @@
 <div class="modal fade" id="productModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="background-color:black;color:white;">
                 <h5 class="modal-title" id="exampleModalLabel">Sản Phẩm</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -129,22 +129,22 @@
                     </div>
                     <div class="form-group">
                         <label>Màu</label>
-                        <input type="text" name="Color" class="form-control" data-rule-required="true" />
-                        @*<select class="form-control">
+                        @*<input type="text" name="Color" class="form-control" data-rule-required="true" />*@
+                        <select class="form-control">
                                 <option name="Color"  data-rule-required="true">Mặc Định</option>
                                 <option name="Color"  data-rule-required="true">Đen</option>
                                 <option name="Color"  data-rule-required="true">Trắng</option>
-                            </select>*@
+                            </select>
                     </div>
                     <div class="form-group">
                         <label>Size</label>
-                        <input type="text" name="Size" class="form-control" data-rule-required="true" />
-                        @*<select class="form-control">
+                        @*<input type="text" name="Size" class="form-control" data-rule-required="true" />*@
+                        <select class="form-control">
                                 <option name="Size"  data-rule-required="true">S</option>
                                 <option name="Size"  data-rule-required="true">M</option>
                                 <option name="Size"  data-rule-required="true">L</option>
                                 <option name="Size"  data-rule-required="true">XL</option>
-                            </select>*@
+                            </select>
                     </div>
                     <div class="form-check">
                         <label class="form-check-label">
@@ -156,9 +156,18 @@
                         <input type="text" name="Quantity" class="form-control" data-rule-required="true" />
                     </div>
                     <div class="form-group">
-                        <label>Ảnh</label>
-                        <input type="text" name="Photo" class="form-control" data-rule-required="true" />
-                    </div>
+                            <label>Ảnh</label>
+                            <input type="text" name="Photo" class="form-control" data-rule-required="true" />
+                        </div>
+                    @*<div class="form-group">
+                        <img class="img-thumbnail no-photo" src="~/images/no-img.jpg" alt="no photo" />
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" accept="image/*" id="exampleInputFile" name="Photo" data-rule-required="true">
+                                <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                            </div>
+                        </div>
+                    </div>*@
                     <div class="form-group">
                         <label>Giá</label>
                         <input type="text" name="Price" class="form-control" data-rule-required="true" />
@@ -171,11 +180,11 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                    <i class="fa fa-times"></i>
+                    <i class="ti-close"></i>
                     Trở Lại
                 </button>
                 <button type="button" class="btn btn-primary" onclick="product.save()">
-                    <i class="fa fa-save"></i>
+                    <i class="ti-check"></i>
                     Lưu
                 </button>
             </div>

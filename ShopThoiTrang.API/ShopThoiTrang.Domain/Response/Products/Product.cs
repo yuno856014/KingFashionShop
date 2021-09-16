@@ -1,6 +1,7 @@
 ﻿using ShopThoiTrang.Domain.Response.CatDetails;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace ShopThoiTrang.Domain.Response.Products
@@ -17,6 +18,7 @@ namespace ShopThoiTrang.Domain.Response.Products
         public bool Status { get; set; }
         public bool IsDeleted { get; set; }
         public int Quantity { get; set; }
+        [MaxLength(10)]
         public string ProductCode { get; set; }
         public CategoryDetails categoryDetails { get; set; }
         public int CatDetailsId { get; set; } 
