@@ -171,7 +171,6 @@ namespace ShopThoiTrang.Services.Products
                     parameters.Add("@productId", update.ProductId);
                     parameters.Add("@productName", update.ProductName);
                     parameters.Add("@status", update.Status);
-                    parameters.Add("@isDeleted", update.IsDeleted);
                     parameters.Add("@photo", update.Photo);
                     parameters.Add("@price", update.Price);
                     parameters.Add("@quantity", update.Quantity);

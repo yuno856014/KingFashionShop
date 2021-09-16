@@ -35,7 +35,7 @@ namespace ShopThoiTrang.API.Controllers
         public async Task<CreateProductResult> Create(CreateProduct model)
         {
             return await productService.Create(model);
-        }
+        }   
         [HttpPut]
         public async Task<UpdateProductResult> Update(UpdateProduct model)
         {

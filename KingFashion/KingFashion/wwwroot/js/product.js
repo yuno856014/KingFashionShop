@@ -104,13 +104,14 @@ product.save = function () {
         let productId = parseInt($('input[name="ProductId"]').val());
         //create new category
         if (productId == 0) {
-            var createProductObj = {};
-            createProductObj.ProductName = $('input[name="ProductName"]').val();
+            var createProductObj = {
+                ProductName: $('input[name="ProductName"]').val(),
+                Price:parseInt($('input[name="Price"]').val()),
+                Quantity: parseInt($('input[name="Quantity"]').val())
+            };
             createProductObj.Status = $('input[name="Status"]').is(":checked");
             createProductObj.Color = $('input[name="Color"]').val();
-            createProductObj.Price = $('input[name="Price"]').val();
             createProductObj.Photo = $('input[name="Photo"]').val();
-            createProductObj.Quantity = $('input[name="Quantity"]').val();
             createProductObj.ProductCode = $('input[name="ProductCode"]').val();
             createProductObj.Description = $('input[name="Description"]').val();
             createProductObj.Size = $('input[name="Size"]').val();
@@ -136,18 +137,18 @@ product.save = function () {
         //update category
         else {
             var updateProductObj = {};
-            updateProductObj.ProductId = ProductId;
-            updateProductObj.ProductName = $('input[name="ProductName"]').val();
-            updateProductObj.Status = $('input[name="Status"]').is(":checked");
-            updateProductObj.Color = $('input[name="Color"]').val();
-            updateProductObj.Price = $('input[name="Price"]').val();
-            updateProductObj.Photo = $('input[name="Photo"]').val();
-            updateProductObj.Quantity = $('input[name="Quantity"]').val();
-            updateProductObj.ProductCode = $('input[name="ProductCode"]').val();
-            updateProductObj.Description = $('input[name="Description"]').val();
-            updateProductObj.Size = $('input[name="Size"]').val();
+            updateProductObj.productId = productId;
+            updateProductObj.productName = $('input[name="ProductName"]').val();
+            updateProductObj.status = $('input[name="Status"]').is(":checked");
+            updateProductObj.color = $('input[name="Color"]').val();
+            updateProductObj.price = parseInt($('input[name="Price"]').val());
+            updateProductObj.photo = $('input[name="Photo"]').val();
+            updateProductObj.quantity = parseInt($('input[name="Quantity"]').val());
+            updateProductObj.productCode = $('input[name="ProductCode"]').val();
+            updateProductObj.description = $('input[name="Description"]').val();
+            updateProductObj.size = $('input[name="Size"]').val();
             $.ajax({
-                url: "https://localhost:44368/CategoryDetails/Update",
+                url: "https://localhost:44368/Product/Update",
                 method: "PUT",
                 dataType: "json",
                 contentType: "application/json",
@@ -175,6 +176,13 @@ product.get = function (id) {
             $('input[name="ProductName"]').val(data.productName);
             $('input[name="ProductId"]').val(data.productId);
             $('input[name="Status"]').prop('checked', data.status);
+            $('input[name="Color"]').val(data.color);
+            $('input[name="Price"]').val(data.price);
+            $('input[name="Photo"]').val(data.photo);
+            $('input[name="Quantity"]').val(data.quantity);
+            $('input[name="ProductCode"]').val(data.productCode);
+            $('input[name="Description"]').val(data.description);
+            $('input[name="Size"]').val(data.size);
         }
     });
     $("#exampleModalLabel").html("Sửa Sản Phẩm");
