@@ -9,6 +9,6 @@ namespace ShopThoiTrang.Domain.Response.Products
         public Product Product { get; set; }
         public bool IsExitst { get; set; }
         public bool Success => Product != null && Product.ProductId > 0 && !IsExitst;
-        public string Message => Success ? Common.Message.Product.ChangeIsDeleted : (IsExitst ? Common.Message.Product.Exits : Common.Message.Fail);
+        public string Message => Success ? Common.Message.Product.Update : (IsExitst ? Common.Message.Product.Exits : Common.Message.Fail);
     }
 }

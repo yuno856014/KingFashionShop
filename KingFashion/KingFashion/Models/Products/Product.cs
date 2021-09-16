@@ -19,6 +19,7 @@ namespace KingFashion.Models.Products
         public bool Status { get; set; }
         public bool IsDeleted { get; set; }
         public int Quantity { get; set; }
+        [MaxLength(10)]
         public string ProductCode { get; set; }
         public CategoryDetails categoryDetails { get; set; }
         public int CatDetailsId { get; set; }
